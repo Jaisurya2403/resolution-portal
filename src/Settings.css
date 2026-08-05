@@ -1,0 +1,197 @@
+.settings-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #e0f2fe;
+  background-image: url("./assets/settings.jpeg");
+  background-size: cover;
+  background-position: center;
+  padding: 20px;
+  font-family: 'Inter', -apple-system, sans-serif;
+  position: relative;
+}
+
+.settings-card {
+  width: 100%;
+  max-width: 900px;
+  min-height: 600px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 40px;
+}
+
+.back-button {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid #1e293b;
+  background: rgba(255, 255, 255, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+  transition: all 0.3s ease;
+}
+
+.back-button:hover {
+  background: #ffffff;
+  transform: scale(1.1);
+}
+
+.settings-content {
+  max-width: 500px;
+  margin-left: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.settings-title {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: #000;
+  margin-bottom: 5px;
+  font-family: 'Georgia', serif;
+}
+
+.search-container {
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 40px;
+  border: 1px solid #94a3b8;
+  padding: 5px 5px 5px 25px;
+  width: 100%;
+  max-width: 450px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.search-input {
+  flex: 1;
+  border: none;
+  background: transparent;
+  font-size: 1.1rem;
+  color: #1e293b;
+  outline: none;
+  
+}
+
+.search-button {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid #94a3b8;
+  background: rgba(255, 255, 255, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.search-button:hover {
+  background: white;
+}
+
+.options-card {
+  background: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border-radius: 24px;
+  border: 1px solid #1e293b;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 35px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+}
+
+.settings-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+}
+
+.item-label {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #000;
+}
+
+.toggle-switch {
+  width: 60px;
+  height: 30px;
+  background: #1e293b;
+  border-radius: 20px;
+  position: relative;
+  cursor: pointer;
+}
+
+.toggle-switch::after {
+  content: '';
+  position: absolute;
+  right: 4px;
+  top: 4px;
+  width: 22px;
+  height: 22px;
+  background: white;
+  border-radius: 50%;
+  transition: transform 0.3s;
+}
+
+.arrow-icon {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .settings-container {
+    background-image: none;
+    background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%);
+    padding: 60px 20px 20px;
+  }
+
+  .settings-card {
+    padding: 20px;
+    min-height: auto;
+  }
+
+  .settings-content {
+    margin-left: 0;
+    max-width: 100%;
+  }
+
+  .settings-title {
+    font-size: 2rem;
+    text-align: center;
+  }
+
+  .search-container {
+    max-width: 100%;
+  }
+
+  .options-card {
+    padding: 30px 20px;
+  }
+
+  .item-label {
+    font-size: 1.2rem;
+  }
+  .search-button {
+  width: 35px;
+  height: 35px;
+  }
+}
