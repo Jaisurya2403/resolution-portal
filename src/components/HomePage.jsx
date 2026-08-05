@@ -9,13 +9,17 @@ import {
   User,
   Settings,
   LogOut,
-  ChevronDown,
+  Menu,
+  X,
 } from "lucide-react";
+import "../HomePage.css";
+import homeBg from "../assets/homeBg.jpeg"
 
 /**
  * HomePage
  * -------
  * Landing page for "My Complaint Portal".
+ * Plain CSS version — no Tailwind required. Pair with HomePage.css.
  *
  * Props:
  * - isLoggedIn (bool)      : controls Login button vs Profile avatar+dropdown
@@ -23,10 +27,6 @@ import {
  * - onNavigate (fn(path))  : called with 'view-post' | 'about' | 'register' |
  *                            'profile' | 'settings' | 'logout'
  * - backgroundImageUrl     : swap in your own hero background image
- *
- * Wire onNavigate to react-router's useNavigate (or your router of choice):
- *   const navigate = useNavigate();
- *   <HomePage onNavigate={(path) => navigate(`/${path}`)} ... />
  */
 export default function HomePage({
   isLoggedIn: isLoggedInProp,
@@ -34,14 +34,15 @@ export default function HomePage({
   onNavigate,
   backgroundImageUrl,
 }) {
-  // Internal fallback state so this component is drop-in demoable.
-  // If you pass `isLoggedIn` as a prop, this internal state is ignored.
   const [internalLoggedIn, setInternalLoggedIn] = useState(false);
   const isLoggedIn =
     typeof isLoggedInProp === "boolean" ? isLoggedInProp : internalLoggedIn;
 
   const [menuOpen, setMenuOpen] = useState(false);
   const menuRef = useRef(null);
+
+  // Mobile hamburger panel (View Post / About / Login / pincode search)
+  const [mobileOpen, setMobileOpen] = useState(false);
 
   useEffect(() => {
     function handleClickOutside(e) {
@@ -53,13 +54,24 @@ export default function HomePage({
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
+  // Close the mobile panel automatically if the viewport is resized back up
+  useEffect(() => {
+    function handleResize() {
+      if (window.innerWidth > 640) setMobileOpen(false);
+    }
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   const handleNavigate = (path) => {
     setMenuOpen(false);
+    setMobileOpen(false);
     if (onNavigate) onNavigate(path);
     else console.log("navigate ->", path);
   };
 
   const handleLogin = () => {
+    setMobileOpen(false);
     if (onLoginClick) onLoginClick();
     else console.log("navigate -> login");
     if (typeof isLoggedInProp !== "boolean") setInternalLoggedIn(true);
@@ -95,61 +107,48 @@ export default function HomePage({
 
   return (
     <div
-      className="relative w-full min-h-screen overflow-hidden bg-cover bg-center font-sans"
+      className="mcp-page"
       style={{
         backgroundImage: `url(${
-          backgroundImageUrl ||
-          "https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?q=80&w=1600&auto=format&fit=crop"
+          homeBg
         })`,
       }}
     >
-      {/* soft light wash so glass panels stay readable over any photo */}
-      <div className="absolute inset-0 bg-gradient-to-b from-white/40 via-white/10 to-white/30 pointer-events-none" />
+      <div className="mcp-overlay" />
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 pt-6">
+      <div className="mcp-container">
         {/* ---------------- NAVBAR ---------------- */}
-        <nav className="flex items-center justify-between gap-3 bg-white/40 backdrop-blur-xl border border-white/60 shadow-[0_8px_32px_rgba(31,38,135,0.15)] rounded-full px-4 sm:px-6 py-3">
-          {/* Logo */}
+        <nav className="mcp-navbar">
           <button
             onClick={() => handleNavigate("home")}
-            className="flex flex-col items-start leading-[1.05] shrink-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 rounded-md"
+            className="mcp-logo"
           >
-            <span className="text-lg sm:text-xl font-black tracking-tight text-slate-900">
-              My<span className="text-blue-600">Complaint</span>
+            <span className="mcp-logo-line1">
+              My<span className="mcp-logo-accent">Complaint</span>
             </span>
-            <span className="text-lg sm:text-xl font-black tracking-tight text-slate-900 -mt-1">
-              Portal
-            </span>
+            <span className="mcp-logo-line2">Portal</span>
           </button>
 
-          {/* Pincode search — hidden on very small screens */}
-          <div className="hidden sm:flex items-center flex-1 max-w-xs bg-white/60 border border-white/70 rounded-full px-4 py-2 mx-2">
-            <input
-              type="text"
-              placeholder="Enter Pincode"
-              className="bg-transparent outline-none text-sm text-slate-700 placeholder:text-slate-500 w-full"
-            />
+          <div className="mcp-search-group">
+            <div className="mcp-pincode">
+              <input type="text" placeholder="Enter Pincode" />
+            </div>
+            <button aria-label="Search" className="mcp-icon-btn">
+              <Search size={16} />
+            </button>
           </div>
 
-          {/* Right side */}
-          <div className="flex items-center gap-2 sm:gap-4 shrink-0">
-            <button
-              aria-label="Search"
-              className="w-9 h-9 flex items-center justify-center rounded-full bg-white/60 border border-white/70 hover:bg-white/80 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
-            >
-              <Search size={16} className="text-slate-700" />
-            </button>
-
+          <div className="mcp-nav-right">
             <button
               onClick={() => handleNavigate("view-post")}
-              className="hidden md:inline text-sm font-semibold text-slate-800 hover:text-blue-600 transition-colors"
+              className="mcp-nav-link mcp-desktop-only"
             >
               View Post
             </button>
 
             <button
               onClick={() => handleNavigate("about")}
-              className="hidden md:inline text-sm font-semibold text-slate-800 hover:text-blue-600 transition-colors"
+              className="mcp-nav-link mcp-desktop-only"
             >
               About
             </button>
@@ -157,118 +156,147 @@ export default function HomePage({
             {!isLoggedIn ? (
               <button
                 onClick={handleLogin}
-                className="text-sm font-semibold text-slate-800 hover:text-blue-600 transition-colors"
+                className="mcp-nav-link mcp-desktop-only"
               >
                 Login
               </button>
             ) : (
-              <div className="relative" ref={menuRef}>
+              <div className="mcp-profile-wrap mcp-desktop-only" ref={menuRef}>
                 <button
                   onClick={() => setMenuOpen((o) => !o)}
                   aria-haspopup="true"
                   aria-expanded={menuOpen}
-                  className="w-9 h-9 flex items-center justify-center rounded-full bg-white/70 border border-white/80 hover:bg-white/90 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
+                  className="mcp-avatar-btn"
                 >
-                  <User size={18} className="text-slate-700" />
+                  <User size={18} />
                 </button>
 
                 {menuOpen && (
-                  <div className="absolute right-0 mt-3 w-44 bg-white/50 backdrop-blur-xl border border-white/60 shadow-[0_8px_32px_rgba(31,38,135,0.2)] rounded-2xl py-2 overflow-hidden animate-[fadeIn_0.15s_ease-out]">
-                    <MenuItem
-                      icon={User}
-                      label="Profile"
+                  <div className="mcp-dropdown">
+                    <button
+                      className="mcp-dropdown-item"
                       onClick={() => handleNavigate("profile")}
-                    />
-                    <MenuItem
-                      icon={Settings}
-                      label="Settings"
+                    >
+                      <User size={15} /> Profile
+                    </button>
+                    <button
+                      className="mcp-dropdown-item"
                       onClick={() => handleNavigate("settings")}
-                    />
-                    <MenuItem
-                      icon={LogOut}
-                      label="Logout"
+                    >
+                      <Settings size={15} /> Settings
+                    </button>
+                    <button
+                      className="mcp-dropdown-item mcp-dropdown-danger"
                       onClick={handleLogout}
-                      danger
-                    />
+                    >
+                      <LogOut size={15} /> Logout
+                    </button>
                   </div>
                 )}
               </div>
             )}
+
+            {/* Hamburger — mobile only */}
+            <button
+              aria-label="Menu"
+              aria-expanded={mobileOpen}
+              className="mcp-hamburger"
+              onClick={() => setMobileOpen((o) => !o)}
+            >
+              {mobileOpen ? <X size={18} /> : <Menu size={18} />}
+            </button>
           </div>
         </nav>
 
+        {/* Reserves the vertical space the fixed navbar occupies so content
+            below doesn't slide underneath it */}
+        <div className="mcp-navbar-spacer" />
+
+        {/* ---------------- MOBILE PANEL ---------------- */}
+        {mobileOpen && (
+          <div className="mcp-mobile-panel">
+            <button
+              className="mcp-mobile-link"
+              onClick={() => handleNavigate("view-post")}
+            >
+              View Post
+            </button>
+            <button
+              className="mcp-mobile-link"
+              onClick={() => handleNavigate("about")}
+            >
+              About
+            </button>
+
+            <div className="mcp-mobile-divider" />
+
+            {!isLoggedIn ? (
+              <button className="mcp-mobile-login" onClick={handleLogin}>
+                <User size={16} /> Login
+              </button>
+            ) : (
+              <>
+                <button
+                  className="mcp-mobile-link"
+                  onClick={() => handleNavigate("profile")}
+                >
+                  <User size={15} /> Profile
+                </button>
+                <button
+                  className="mcp-mobile-link"
+                  onClick={() => handleNavigate("settings")}
+                >
+                  <Settings size={15} /> Settings
+                </button>
+                <button
+                  className="mcp-mobile-link mcp-mobile-danger"
+                  onClick={handleLogout}
+                >
+                  <LogOut size={15} /> Logout
+                </button>
+              </>
+            )}
+          </div>
+        )}
+
         {/* ---------------- HERO ---------------- */}
-        <div className="mt-16 sm:mt-24 max-w-xl">
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-black text-slate-900 leading-[1.05]">
-            Your Voice.
-          </h1>
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-black text-blue-600 leading-[1.05] mt-1">
-            Our Responsibility.
-          </h1>
+        <div className="mcp-hero">
+          <h1 className="mcp-hero-line1">Your Voice.</h1>
+          <h1 className="mcp-hero-line2">Our Responsibility.</h1>
 
           <button
             onClick={() => handleNavigate("register")}
-            className="group mt-8 inline-flex items-center gap-2 bg-white/60 hover:bg-white/80 backdrop-blur-xl border border-slate-900/80 text-slate-900 font-bold text-sm sm:text-base rounded-full pl-6 pr-5 py-3 shadow-[0_8px_24px_rgba(0,0,0,0.12)] transition-all hover:shadow-[0_10px_30px_rgba(0,0,0,0.18)] hover:-translate-y-0.5"
+            className="mcp-cta"
           >
             Register Complaint
-            <ArrowRight
-              size={18}
-              className="transition-transform group-hover:translate-x-1"
-            />
+            <ArrowRight size={18} />
           </button>
         </div>
 
         {/* ---------------- FEATURE STRIP ---------------- */}
-        <div className="mt-16 sm:mt-24 mb-10">
-          <div className="bg-white/45 backdrop-blur-xl border border-white/60 shadow-[0_8px_32px_rgba(31,38,135,0.12)] rounded-3xl px-6 sm:px-8 py-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-4">
-            {features.map((f, i) => (
-              <div
-                key={f.title}
-                className={`flex items-start gap-3 ${
-                  i !== 0 ? "lg:pl-4 lg:border-l lg:border-slate-900/10" : ""
-                }`}
-              >
-                <div className="w-10 h-10 shrink-0 rounded-full bg-white/70 border border-white/80 flex items-center justify-center">
-                  <f.icon size={18} className="text-blue-600" />
-                </div>
-                <div>
-                  <p className="text-sm font-bold text-slate-900">{f.title}</p>
-                  <p className="text-xs text-slate-600 mt-0.5 leading-snug">
-                    {f.desc}
-                  </p>
-                </div>
+        <div className="mcp-features">
+          {features.map((f, i) => (
+            <div className="mcp-feature" key={f.title}>
+              <div className="mcp-feature-icon">
+                <f.icon size={18} />
               </div>
-            ))}
-          </div>
+              <div>
+                <p className="mcp-feature-title">{f.title}</p>
+                <p className="mcp-feature-desc">{f.desc}</p>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
 
-      {/* Dev-only helper so you can preview both states without wiring auth.
-          Safe to delete once real auth state drives `isLoggedIn`. */}
       {typeof isLoggedInProp !== "boolean" && (
         <button
           onClick={() => setInternalLoggedIn((v) => !v)}
-          className="fixed bottom-4 left-4 z-20 text-[11px] font-semibold px-3 py-1.5 rounded-full bg-slate-900/80 text-white/90 hover:bg-slate-900 backdrop-blur-sm border border-dashed border-white/40"
+          className="mcp-demo-toggle"
         >
           Demo: {isLoggedIn ? "Logged in" : "Logged out"} (toggle)
         </button>
       )}
     </div>
-  );
-}
-
-function MenuItem({ icon: Icon, label, onClick, danger }) {
-  return (
-    <button
-      onClick={onClick}
-      className={`w-full flex items-center gap-2.5 px-4 py-2.5 text-sm font-medium text-left transition-colors ${
-        danger
-          ? "text-red-600 hover:bg-red-50/60"
-          : "text-slate-800 hover:bg-white/60"
-      }`}
-    >
-      <Icon size={15} />
-      {label}
-    </button>
   );
 }
