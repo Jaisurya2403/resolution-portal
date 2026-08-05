@@ -1,0 +1,222 @@
+.signup-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%);
+  padding: 20px;
+  font-family: 'Inter', -apple-system, sans-serif;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Background elements matching the reference */
+.signup-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: radial-gradient(#3b82f6 1.5px, transparent 1.5px);
+  background-size: 40px 40px;
+  opacity: 0.15;
+  pointer-events: none;
+}
+
+.signup-card {
+  background: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: 24px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+  width: 100%;
+  max-width: 960px;
+  min-height: 600px;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  display: flex;
+}
+
+.back-button {
+  position: absolute;
+  top: 24px;
+  left: 24px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid #cbd5e1;
+  background: rgba(255, 255, 255, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  color: #1e293b;
+}
+
+.back-button:hover {
+  background: #ffffff;
+  transform: scale(1.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Illustration background layer */
+.illustration-container {
+  flex: 1;
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: 0;
+  background: radial-gradient(circle at 30% 50%, rgba(255, 255, 255, 0.2) 0%, transparent 70%);
+}
+
+.character-image {
+  height: 90%;
+  width: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.1));
+  z-index: 2;
+}
+
+/* Form section on the right */
+.form-section {
+  flex: 1.2;
+  padding: 60px 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  z-index: 3;
+}
+
+.welcome-text {
+  font-size: 3.5rem;
+  font-weight: 900;
+  color: #1e293b;
+  margin-bottom: 45px;
+  line-height: 1;
+  font-family: 'Georgia', serif;
+  letter-spacing: -1px;
+}
+
+.signup-form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.form-group {
+  display: grid;
+  grid-template-columns: 160px 1fr;
+  align-items: center;
+  gap: 12px;
+}
+
+.form-group label {
+  font-weight: 700;
+  color: #1e293b;
+  font-size: 1.2rem;
+  white-space: nowrap;
+}
+
+.form-input {
+  background: #d1d9e6;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  padding: 14px 28px;
+  border-radius: 40px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  width: 100%;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.form-input:focus {
+  outline: none;
+  background: #c3cedd;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1), 0 0 0 4px rgba(59, 130, 246, 0.1);
+}
+
+.checkbox-group {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 10px 0;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #334155;
+  padding-left: 172px; /* Aligning with inputs */
+}
+
+.form-checkbox {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  accent-color: #000;
+}
+
+.submit-button {
+  background: #000;
+  color: #fff;
+  border: none;
+  padding: 16px 48px;
+  border-radius: 12px;
+  font-weight: 800;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  align-self: flex-start;
+  margin-left: 172px; /* Aligning with inputs */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.submit-button:hover {
+  background: #1e293b;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 900px) {
+  .signup-card {
+    flex-direction: column;
+    max-width: 500px;
+  }
+
+  .illustration-container {
+    height: 300px;
+    padding-top: 40px;
+  }
+
+  .form-section {
+    padding: 40px 30px;
+  }
+
+  .form-group {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .checkbox-group, .submit-button {
+    margin-left: 0;
+    padding-left: 0;
+  }
+
+  .submit-button {
+    width: 100%;
+    align-self: stretch;
+  }
+
+  .welcome-text {
+    font-size: 2.5rem;
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .welcome-text {
+    font-size: 2rem;
+  }
+}

@@ -1,16 +1,17 @@
 import React from 'react';
 import '../Login.css';
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+   const navigate = useNavigate();
   const handleForgotPassword = () => {
     // Navigation to Forgot Password page
     console.log('Navigate to Forgot Password');
   };
 
   const handleSignUp = () => {
-    // Navigation to Sign Up page
-    console.log('Navigate to Sign Up');
-  };
+    navigate("/signup");
+};
 
   const handleAdminLogin = () => {
     console.log('Navigate to Admin Login');

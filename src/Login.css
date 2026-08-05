@@ -1,25 +1,26 @@
 .login-page {
-  position: relative;
-  width: 100%;
-  min-height: 100vh;
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  padding: 0 8%;
-  overflow: hidden;
-  font-family: 'Inter', sans-serif;
+    position: relative;
+    min-height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding-right: 6%;
+    overflow: hidden;
+    font-family: 'Inter', sans-serif;
 }
 
+
 .login-background{
-    position:absolute;
-    inset:0;
+    position: fixed;
+    inset: 0;
 
-    background-image:url("./assets/login4.png");
-    background-size:cover;
-    background-position:center;
-    background-repeat:no-repeat;
+    background-image: url("./assets/login4.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 
-    z-index:-2;
+    z-index: -2;
 }
 
 .bg-image {
@@ -49,15 +50,23 @@
   transform: scale(1.1);
 }
 
-.login-container {
-  z-index: 1;
+.login-container{
+    width:100%;
+    max-width:500px;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    z-index:2;
 }
 
-.login-card {
-  width: 450px;
-  padding: 50px;
-  border-radius: 40px;
-  text-align: center;
+.login-card{
+    width:100%;
+    max-width:450px;
+    padding:45px;
+    border-radius:40px;
+    box-sizing:border-box;
 }
 
 .glass {
@@ -163,37 +172,24 @@
 }
 
 /* Mobile Responsive */
-@media (max-width: 1024px) {
-  .login-page {
-    justify-content: center;
-    padding-right: 0;
-  }
-}
-
-@media (max-width: 600px) {
-  .login-card {
-    width: 90%;
-    padding: 30px;
-  }
-  
-  .login-title {
-    font-size: 2rem;
-  }
-}@media (max-width:1024px){
+@media (max-width:1024px){
 
 .login-page{
     justify-content:center;
-    padding:40px;
+    padding:10px;
 }
 
 .login-container{
-    width:100%;
-    display:flex;
-    justify-content:center;
+    max-width:420px;
 }
 
 .login-card{
-    width:420px;
+    max-width:420px;
+}
+
+.login-background{
+    filter:blur(8px);
+    transform:scale(1.05);
 }
 
 }

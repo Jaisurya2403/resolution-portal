@@ -1,33 +1,46 @@
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@400;600;700&display=swap');
 
-.signup-page {
-  position: relative;
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
   width: 100%;
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  padding: 0 8%;
-  overflow: hidden;
-  font-family: 'IBM Plex Serif', serif;
+  overflow-x: hidden;
 }
 
-.signup-background {
-  position: absolute;
-  inset: 0;
+.signup-page{
+    width:100%;
+    min-height:100vh;
 
-  background-image: url("./assets/signup3.png");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+    display:flex;
+    justify-content:flex-end;
+    align-items:center;
 
-  z-index: -2;
+    padding:0 80px;
+
+    position:relative;
 }
+
+.signup-background{
+    position:fixed;
+    inset:0;
+
+    background-image:url("./assets/signup3.png");
+    background-size:cover;
+    background-position:center;
+    background-repeat:no-repeat;
+
+    z-index:-1;
+}
+
 .signup-background::after {
   content: "";
   position: absolute;
   inset: 0;
-  background: rgba(0,0,0,0.12);
+  background: rgba(0, 0, 0, 0.12);
   z-index: 1;
 }
 
@@ -41,52 +54,53 @@
   position: absolute;
   top: 40px;
   left: 40px;
-  width: 48px;
-  height: 48px;
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.4);
   border: 1px solid rgba(0, 0, 0, 0.1);
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   z-index: 10;
-  transition: transform 0.2s ease;
+  transition: all 0.3s ease;
 }
 
 .back-button:hover {
+  background: rgba(255, 255, 255, 0.6);
   transform: scale(1.1);
-  background: rgba(255, 255, 255, 0.8);
 }
 
-.signup-container {
-  width: 100%;
-  display: flex;
-  justify-content: flex-end;
-  z-index: 5;
+.signup-container{
+    width:450px;
+    display:flex;
+    justify-content:flex-end;
 }
 
 .signup-card {
-  width: 440px;
-  padding: 50px 40px;
+  width: 100%;
+  max-width: 450px;
+  padding: 45px;
   border-radius: 40px;
-  text-align: center;
+  box-sizing: border-box;
 }
 
 .glass {
-  background: rgba(255, 255, 255, 0.25);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.05);
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
 
 .signup-title {
-  font-size:clamp(1.8rem,4vw,2.8rem);
-  font-weight: 700;
+  font-size: clamp(1.8rem, 3vw, 2.5rem);
+  font-weight: 800;
   color: #333;
-  margin-bottom: 40px;
-  text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  margin: 0 0 40px;
+  text-align: center;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .signup-form {
@@ -101,18 +115,18 @@
 
 .form-group label {
   display: block;
-  font-size: 1.25rem;
+  font-size: 1.1rem;
   font-weight: 600;
-  margin-bottom: 12px;
-  color: #1e293b;
+  margin-bottom: 10px;
+  color: #333;
 }
 
 .glass-input {
   width: 100%;
-  padding: 18px 25px;
-  border-radius: 30px;
+  padding: 15px 20px;
+  border-radius: 25px;
   border: 1px solid rgba(0, 0, 0, 0.1);
-  background: rgba(220, 225, 230, 0.6);
+  background: rgba(255, 255, 255, 0.4);
   font-size: 1rem;
   outline: none;
   transition: all 0.3s ease;
@@ -120,21 +134,21 @@
 }
 
 .glass-input:focus {
-  background: rgba(255, 255, 255, 0.8);
+  background: rgba(255, 255, 255, 0.6);
   border-color: #3b82f6;
 }
 
 .account-prompt {
-  margin-top: 10px;
+  margin: 10px 0 0;
   font-size: 0.95rem;
   font-weight: 600;
-  color: #333;
+  word-wrap: break-word;
 }
 
 .link-text {
+  font-weight: 700;
   text-decoration: underline;
   cursor: pointer;
-  font-weight: 700;
 }
 
 .resend-btn {
@@ -155,133 +169,57 @@
 }
 
 .signup-submit-btn {
-  margin-top: 30px;
-  padding: 16px;
-  border-radius: 35px;
+  margin-top: 20px;
+  padding: 15px;
+  border-radius: 30px;
   border: none;
-  background: rgba(215, 220, 225, 0.9);
-  font-size: 1.15rem;
+  background: rgba(230, 230, 230, 0.8);
+  font-size: 1.2rem;
   font-weight: 700;
-  color: #1e293b;
+  color: #333;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .signup-submit-btn:hover {
-  background: #fff;
+  background: rgba(255, 255, 255, 1);
   transform: translateY(-2px);
-  box-shadow: 0 6px 15px rgba(0,0,0,0.1);
 }
 
-/* Responsive Styles */
-/* @media (max-width: 1024px) {
-  .signup-page {
-    justify-content: center;
-    padding-right: 0;
-  }
+/* Mobile Responsive */
+@media (max-width:768px) {
+    .signup-page {
+        justify-content:center;
+        padding:20px;
+    }
+
+    .signup-container {
+        max-width:420px;
+    }
+
+    .signup-background {
+        filter:blur(8px);
+        transform:scale(1.05);
+    }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 480px) {
   .signup-card {
-    width: 90%;
-    padding: 30px 20px;
+    padding: 30px 25px;
+    border-radius: 28px;
   }
+
   .signup-title {
-    font-size: 2.2rem;
+    font-size: 1.6rem;
+    margin-bottom: 25px;
   }
-} */
 
-@media (max-width:768px){
+  .signup-form {
+    gap: 18px;
+  }
 
-.signup-page{
-    justify-content:center;
-    padding:20px;
-}
-
-.signup-container{
-    justify-content:center;
-}
-
-.signup-background{
-    filter:blur(8px);
-    transform:scale(1.08);
-}
-
-.signup-background::after{
-    background:rgba(0,0,0,.28);
-}
-
-.signup-card{
-    width:90%;
-    max-width:400px;
-    padding:35px 30px;
-    border-radius:30px;
-}
-
-.signup-title{
-    font-size:2rem;
-}
-
-.form-group label{
-    font-size:1rem;
-}
-
-.glass-input{
-    padding:15px 20px;
-}
-
-.signup-submit-btn{
-    padding:14px;
-}
-
-.back-button{
-    top:20px;
-    left:20px;
-}
-
-}
-@media (max-width:1024px){
-
-.signup-page{
-    justify-content:center;
-    padding:40px;
-}
-
-.signup-container{
-    justify-content:center;
-}
-
-.signup-card{
-    width:420px;
-}
-
-}
-@media (max-width:480px){
-
-.signup-card{
-    width:95%;
-    padding:25px 20px;
-}
-
-.signup-title{
-    font-size:1.8rem;
-}
-
-.signup-form{
-    gap:18px;
-}
-
-.account-prompt{
-    font-size:.85rem;
-}
-
-.resend-btn{
-    width:100%;
-}
-
-.signup-submit-btn{
-    font-size:1rem;
-}
-
+  .resend-btn {
+    width: 100%;
+  }
 }
