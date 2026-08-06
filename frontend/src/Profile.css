@@ -309,23 +309,7 @@ text-align: left;
 }
 
 /* Responsive */
-@media (max-width: 900px) {
-  .profile-page {
-    flex-direction: column;
-    overflow-y: auto;
-  }
-  .sidebar {
-    width: 100%;
-    padding: 20px;
-  }
-  .main-container {
-    padding: 20px;
-  }
-}
-html,
-body{
-    overflow-x:hidden;
-}
+
 
 /* ===========================
    TABLET

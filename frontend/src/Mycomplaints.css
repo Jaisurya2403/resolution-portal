@@ -1,0 +1,462 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@400;500;600;700&display=swap');
+
+:root {
+  --glass-bg: rgba(255, 255, 255, 0.2);
+  --glass-border: rgba(255, 255, 255, 0.3);
+  --accent-blue: #3b82f6;
+  --text-dark: #1e293b;
+}
+
+.complaints-page{
+    position:relative;
+    display:flex;
+    width:100%;
+    min-height:100vh;
+    overflow:hidden;
+    font-family:'IBM Plex Serif', serif;
+}
+
+.background-overlay{
+    position:fixed;
+    inset:0;
+    background:url("./assets/complaints.jpeg") center center/cover no-repeat;
+    filter:blur(3px);
+    transform:scale(1.05);
+    z-index:-1;
+}
+
+/* Sidebar Area - Matches Profile.css */
+.sidebar{
+    width:240px;
+    flex-shrink:0;
+    padding:30px 20px;
+    display:flex;
+    flex-direction:column;
+    gap:25px;
+}
+
+.home-btn{
+    width:50px;
+    height:50px;
+    position:fixed;
+}
+
+.menu-container{
+    width:100%;
+    max-width:260px;
+}
+
+.menu-toggle{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    position:fixed;
+    margin-top:65px;
+    width:60px;
+    padding:14px 18px;
+    border-radius:12px;
+}
+
+.menu-list{
+    position:fixed;
+    width:200px;
+    margin-top:120px;
+}
+
+.menu-item{
+    width:100%;
+}
+.menu-item:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.menu-item.active {
+  background: #000;
+  color: #fff;
+}
+
+/* Main Content Area */
+.main-container{
+    flex:1;
+    display:flex;
+    flex-direction:column;
+    padding:40px;
+    margin-left:-120px;
+    overflow-y:auto;
+}
+
+.page-title{
+    font-size:2.4rem;
+    font-weight:700;
+    text-align:center;
+    margin-bottom:35px;
+}
+
+.complaints-grid{
+    width:100%;
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(340px,1fr));
+    gap:30px;
+    justify-content:center;
+}
+
+.complaint-card{
+    width:100%;
+    max-width:420px;
+    margin:auto;
+    padding:20px;
+    border-radius:28px;
+}
+
+.glass {
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+}
+
+.complaint-card:hover {
+  transform: translateY(-10px) scale(1.02);
+  background: rgba(255, 255, 255, 0.35);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+/* Card Image Section */
+.card-image-wrapper{
+    width:100%;
+    height:230px;
+    border-radius:20px;
+    overflow:hidden;
+}
+
+.complaint-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.complaint-card:hover .complaint-img {
+  transform: scale(1.1);
+}
+
+.nav-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.6);
+  border: none;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #1e293b;
+  opacity: 0;
+  transition: opacity 0.3s ease, background 0.2s ease;
+}
+
+.complaint-card:hover .nav-arrow {
+  opacity: 1;
+}
+
+.nav-arrow:hover {
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.nav-arrow.left { left: 10px; }
+.nav-arrow.right { right: 10px; }
+
+/* Card Content Area */
+.card-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.card-content p {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
+.card-content strong {
+  font-weight: 700;
+  margin-right: 5px;
+}
+
+/* Card Footer Area */
+.card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 5px;
+}
+
+.delete-btn {
+  background: transparent;
+  border: none;
+  color: #1e293b;
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 6px;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.delete-btn:hover {
+  background: rgba(239, 68, 68, 0.1);
+  color: #ef4444;
+}
+
+.expand-indicator {
+  color: #1e293b;
+  display: flex;
+  align-items: center;
+  transition: transform 0.3s ease;
+}
+
+.complaint-card:hover .expand-indicator {
+  transform: translateY(3px);
+}
+
+.top-toolbar{
+    width:100%;
+    display:flex;
+    justify-content:flex-end;
+    align-items:center;
+    gap:30px;
+    margin-bottom:35px;
+}
+.search-box{
+
+    display:flex;
+    align-items:center;
+
+    background:rgba(255,255,255,.35);
+
+    backdrop-filter:blur(20px);
+
+    border-radius:40px;
+
+    padding:10px;
+
+    box-shadow:0 8px 25px rgba(0,0,0,.12);
+
+}.search-input{
+
+    width:220px;
+
+    height:45px;
+
+    border:none;
+
+    outline:none;
+
+    border-radius:30px;
+
+    padding:0 20px;
+
+    background:#ffffff90;
+
+    font-size:16px;
+
+}
+.search-btn{
+
+    width:45px;
+
+    height:45px;
+
+    margin:0 8px;
+
+    border-radius:50%;
+
+    border:none;
+
+    background:white;
+
+    cursor:pointer;
+
+    font-size:22px;
+
+}
+.search-select{
+
+    height:45px;
+
+    border:none;
+
+    outline:none;
+
+    border-radius:15px;
+
+    padding:0 18px;
+
+    background:#ffffff90;
+
+    font-size:16px;
+
+}
+.resolved-filter{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    font-size:22px;
+
+    font-weight:600;
+
+}.resolved-filter input{
+
+    width:22px;
+
+    height:22px;
+
+    cursor:pointer;
+
+}
+
+/* Responsive Styles */
+@media(max-width:900px){
+
+.complaints-page{
+    flex-direction:column;
+}
+
+.sidebar{
+    width:100%;
+    padding:15px;
+    display:flex;
+    flex-direction:row;
+    justify-content:space-between;
+}
+
+.home-btn{
+    top:15px;
+    left:15px;
+}
+
+.menu-toggle{
+    top:15px;
+    right:15px;
+    margin-top:0;
+}
+
+.menu-list{
+    top:80px;
+    right:15px;
+    margin-top:0;
+}
+
+.main-container{
+    margin-left:0;
+    padding:90px 20px 30px;
+}
+
+.complaints-grid{
+    grid-template-columns:1fr;
+}
+
+.complaint-card{
+    max-width:650px;
+}
+
+}
+
+@media(max-width:600px){
+
+.main-container{
+    padding:90px 15px 20px;
+}
+
+.page-title{
+    font-size:2rem;
+}
+
+.complaint-card{
+    width:100%;
+}
+
+.card-image-wrapper{
+    height:190px;
+}
+
+.menu-list{
+    width:190px;
+}
+
+}
+@media(max-width:768px){
+
+.top-toolbar{
+
+    flex-direction:column;
+
+    align-items:stretch;
+
+    gap:15px;
+
+}
+
+.search-box{
+
+    width:100%;
+
+}
+
+.search-input{
+
+    width:100%;
+
+}
+
+.search-select{
+
+    width:30%;
+
+}
+
+}
+@media (max-width:600px){
+
+.top-toolbar{
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:stretch;
+
+    gap:15px;
+
+}
+
+}@media (max-width:600px){
+
+.search-box{
+
+    width:100%;
+
+    display:flex;
+
+    align-items:center;
+
+}
+
+.search-input{
+
+    flex:1;
+
+    min-width:0;
+
+}
+
+}
