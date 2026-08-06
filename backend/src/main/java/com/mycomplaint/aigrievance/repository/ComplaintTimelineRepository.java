@@ -10,5 +10,6 @@ import com.mycomplaint.aigrievance.entity.ComplaintTimeline;
 public interface ComplaintTimelineRepository extends JpaRepository<ComplaintTimeline, Long> {
 
     List<ComplaintTimeline> findByComplaintOrderByEventTimeAsc(Complaint complaint);
-
+    
+    List<ComplaintTimeline> findByComplaintIdOrderByEventTimeAsc(Long complaintId);
 }

@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import com.mycomplaint.aigrievance.dto.AdminDashboardResponse;
 import com.mycomplaint.aigrievance.dto.ComplaintDetailResponse;
 import com.mycomplaint.aigrievance.dto.ComplaintSummaryResponse;
+import com.mycomplaint.aigrievance.dto.ComplaintTimelineResponse;
 import com.mycomplaint.aigrievance.dto.DepartmentStatisticsResponse;
 import com.mycomplaint.aigrievance.dto.UpdateComplaintStatusRequest;
 import com.mycomplaint.aigrievance.entity.Complaint;
@@ -181,5 +182,29 @@ public class AdminServiceImpl implements AdminService {
         timelineRepository.save(timeline);
 
         return getComplaint(complaintNumber);
+    }
+    
+    @Override
+    public List<ComplaintTimelineResponse> getComplaintTimeline(
+            String complaintNumber) {
+
+        Complaint complaint = complaintRepository
+                .findByComplaintNumber(complaintNumber)
+                .orElseThrow(() ->
+                        new RuntimeException("Complaint not found"));
+
+        return timelineRepository.findByComplaintIdOrderByEventTimeAsc(complaint.getId())
+                .stream()
+                .map(timeline -> {
+
+                    ComplaintTimelineResponse response =
+                            new ComplaintTimelineResponse();
+
+                    response.setEvent(timeline.getEvent());
+                    response.setRemarks(timeline.getRemarks());
+                    response.setCreatedAt(timeline.getEventTime());
+                    return response;
+
+                }).toList();
     }
 }

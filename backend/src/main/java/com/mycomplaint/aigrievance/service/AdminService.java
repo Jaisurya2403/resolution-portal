@@ -5,6 +5,7 @@ import java.util.List;
 import com.mycomplaint.aigrievance.dto.AdminDashboardResponse;
 import com.mycomplaint.aigrievance.dto.ComplaintDetailResponse;
 import com.mycomplaint.aigrievance.dto.ComplaintSummaryResponse;
+import com.mycomplaint.aigrievance.dto.ComplaintTimelineResponse;
 import com.mycomplaint.aigrievance.dto.DepartmentStatisticsResponse;
 import com.mycomplaint.aigrievance.dto.UpdateComplaintStatusRequest;
 import com.mycomplaint.aigrievance.entity.ComplaintStatus;
@@ -28,5 +29,8 @@ public interface AdminService {
     ComplaintDetailResponse updateComplaintStatus(
             String complaintNumber,
             UpdateComplaintStatusRequest request);
+    
+    List<ComplaintTimelineResponse> getComplaintTimeline(
+            String complaintNumber);
 
 }

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.mycomplaint.aigrievance.dto.AdminDashboardResponse;
 import com.mycomplaint.aigrievance.dto.ComplaintDetailResponse;
 import com.mycomplaint.aigrievance.dto.ComplaintSummaryResponse;
+import com.mycomplaint.aigrievance.dto.ComplaintTimelineResponse;
 import com.mycomplaint.aigrievance.dto.DepartmentStatisticsResponse;
 import com.mycomplaint.aigrievance.dto.UpdateComplaintStatusRequest;
 import com.mycomplaint.aigrievance.entity.ComplaintStatus;
@@ -83,5 +84,13 @@ public class AdminController {
                 adminService.updateComplaintStatus(
                         complaintNumber,
                         request));
+    }
+    
+    @GetMapping("/complaints/{complaintNumber}/timeline")
+    public ResponseEntity<List<ComplaintTimelineResponse>> getComplaintTimeline(
+            @PathVariable String complaintNumber) {
+
+        return ResponseEntity.ok(
+                adminService.getComplaintTimeline(complaintNumber));
     }
 }
