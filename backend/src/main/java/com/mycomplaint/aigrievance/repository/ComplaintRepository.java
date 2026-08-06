@@ -1,5 +1,6 @@
 package com.mycomplaint.aigrievance.repository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,5 +17,15 @@ public interface ComplaintRepository extends JpaRepository<Complaint, Long> {
     List<Complaint> findByUser(User user);
 
     List<Complaint> findByStatus(ComplaintStatus status);
+    
+    long countByStatus(ComplaintStatus status);
+
+    long countByAiProcessed(Boolean aiProcessed);
+
+    long countByCreatedAtBetween(
+            LocalDateTime start,
+            LocalDateTime end);
+
+    List<Complaint> findByDepartmentId(Long departmentId);
 
 }
