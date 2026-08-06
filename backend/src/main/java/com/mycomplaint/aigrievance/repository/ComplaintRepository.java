@@ -28,4 +28,15 @@ public interface ComplaintRepository extends JpaRepository<Complaint, Long> {
 
     List<Complaint> findByDepartmentId(Long departmentId);
 
+    List<Complaint> findByDepartmentIdOrderByCreatedAtDesc(Long departmentId);
+
+    List<Complaint> findAllByOrderByCreatedAtDesc();
+
+    List<Complaint> findByStatusOrderByCreatedAtDesc(ComplaintStatus status);
+
+    List<Complaint> findByComplaintNumberContainingIgnoreCase(String complaintNumber);
+
+    List<Complaint> findByTitleContainingIgnoreCase(String title);
+
+    List<Complaint> findByUser_NameContainingIgnoreCase(String name);
 }
