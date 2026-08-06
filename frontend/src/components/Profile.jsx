@@ -12,7 +12,7 @@ const Profile = () => {
     phone: '+1 234 567 8900',
     location: 'New York, USA',
     email: 'john.doe@example.com'
-  });
+  }); 
 
   const fileInputRef = useRef(null);
 
